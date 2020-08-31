@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class InvoiceServiceTest {
     @Test
-    public void givenDistanceAndTime_shouldReturnTotalFare() {
+    public void givenDistanceAndTime_whenSufficient_shouldReturnTotalFare() {
         InvoiceGanerator invoiceGanerator = new InvoiceGanerator();
         double distance = 2.0;
         int time = 5;

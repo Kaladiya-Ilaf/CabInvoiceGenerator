@@ -3,11 +3,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InvoiceServiceTest {
-    InvoiceGenerator invoiceGenerator = null;
+    InvoiceService invoiceGenerator = null;
 
     @Before
     public void setUp() throws Exception {
-        invoiceGenerator = new InvoiceGenerator();
+        invoiceGenerator = new InvoiceService();
     }
 
     @Test
@@ -37,4 +37,8 @@ public class InvoiceServiceTest {
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
+    @Test
+    public void givenUserIDAndRides_shouldReturnInvoiceSummary() {
+
+    }
 }

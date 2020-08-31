@@ -1,4 +1,4 @@
-public class InvoiceGanerator {
+public class InvoiceGenerator {
 
     private static final double MINIMUM_COST_PER_KILOMETER = 10;
     private static final int COST_PER_MINUTE = 1;

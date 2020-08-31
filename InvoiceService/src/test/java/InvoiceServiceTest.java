@@ -21,7 +21,7 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void givenMultipleRides_sholudReturnTotalFare() {
+    public void givenDistanceAndTime_whenForMultipleRides_shouldReturnTotalFare() {
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
         Ride[] rides = {new Ride(2.0, 5),
                         new Ride(0.1, 5),

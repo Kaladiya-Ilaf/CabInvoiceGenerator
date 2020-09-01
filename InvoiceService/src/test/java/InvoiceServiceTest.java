@@ -4,10 +4,20 @@ import org.junit.Test;
 
 public class InvoiceServiceTest {
     InvoiceService invoiceService = null;
+    Ride[] rides = null;
+    InvoiceSummary expectedInvoiceSummary = null;
+    private RideRepository rideRepository = null;
 
     @Before
     public void setUp(){
         invoiceService = new InvoiceService();
+        rideRepository = new RideRepository();
+        invoiceService.setRideRepository(rideRepository);
+        rides = new Ride[]{
+                new Ride(CabRide.NORMAL, 2.0, 5),
+                new Ride(CabRide.PREMIUM,2.0, 2),
+        };
+        expectedInvoiceSummary =  new InvoiceSummary(2, 59.0);
     }
 
     @Test
@@ -28,25 +38,15 @@ public class InvoiceServiceTest {
 
     @Test
     public void givenDistanceAndTime_whenForMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(2.0, 5),
-                        new Ride(0.1, 5),
-                        new Ride(0.1,1)
-        };
-        InvoiceSummary summary = invoiceService.calculateFare(rides);
-        InvoiceSummary expectedInvoiceSummary =  new InvoiceSummary(3, 36.0);
+        InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
     @Test
     public void givenUserIDAndRides_shouldReturnInvoiceSummary() {
         String userId = "a@i.com";
-        Ride[] rides = {new Ride(2.0, 5),
-                new Ride(0.1, 5),
-                new Ride(0.1,1)
-        };
         invoiceService.addRides(userId, rides);
         InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
-        InvoiceSummary expectedInvoiceSummary =  new InvoiceSummary(3, 36.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }

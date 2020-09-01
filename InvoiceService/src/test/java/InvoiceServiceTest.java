@@ -6,12 +6,11 @@ public class InvoiceServiceTest {
     InvoiceService invoiceService = null;
     Ride[] rides = null;
     InvoiceSummary expectedInvoiceSummary = null;
-    private RideRepository rideRepository = null;
 
     @Before
     public void setUp(){
         invoiceService = new InvoiceService();
-        rideRepository = new RideRepository();
+        RideRepository rideRepository = new RideRepository();
         invoiceService.setRideRepository(rideRepository);
         rides = new Ride[]{
                 new Ride(CabRide.NORMAL, 2.0, 5),

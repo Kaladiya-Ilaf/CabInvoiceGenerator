@@ -1,11 +1,26 @@
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class InvoiceServiceTest {
-    InvoiceService invoiceService = null;
-    Ride[] rides = null;
-    InvoiceSummary expectedInvoiceSummary = null;
+
+    @Mock
+    InvoiceService invoiceService;
+    InvoiceSummary expectedInvoiceSummary;
+    RideRepository rideRepository;
+    private String userId = "a@b.com";
+    Ride[] rides;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp(){
@@ -47,5 +62,12 @@ public class InvoiceServiceTest {
         invoiceService.addRides(userId, rides);
         InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
         Assert.assertEquals(expectedInvoiceSummary, summary);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void givenUserIdAndRides_WhenGiveWrongInvoiceSummary_ShouldReturnNotEqual() {
+        invoiceService.addRides(userId, rides);
+        InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
+        Assert.assertNotEquals(expectedInvoiceSummary, summary);
     }
 }
